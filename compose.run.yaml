@@ -1,0 +1,7 @@
+# Execution-only overlay: never build images from this configuration.
+services:
+  cpu:
+    build: !reset null
+    pull_policy: never
+    volumes:
+      - ./tests:/workspace/tests:ro

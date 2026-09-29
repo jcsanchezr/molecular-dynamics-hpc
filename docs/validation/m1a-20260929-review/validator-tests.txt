@@ -1,0 +1,21 @@
+ Container molecular-dynamics-hpc-cpu-run-c8cc2c1f64e1 Creating 
+ Container molecular-dynamics-hpc-cpu-run-c8cc2c1f64e1 Created 
+test_accepts_coarse_convergence (__main__.WaterEMTest.test_accepts_coarse_convergence) ... ok
+test_normal_constraint_configuration_is_not_a_warning (__main__.WaterEMTest.test_normal_constraint_configuration_is_not_a_warning) ... ok
+test_rejects_empty_console_log (__main__.WaterEMTest.test_rejects_empty_console_log) ... ok
+test_rejects_fatal_error (__main__.WaterEMTest.test_rejects_fatal_error) ... ok
+test_rejects_force_above_threshold (__main__.WaterEMTest.test_rejects_force_above_threshold) ... ok
+test_rejects_increased_energy (__main__.WaterEMTest.test_rejects_increased_energy) ... ok
+test_rejects_lincs_warning (__main__.WaterEMTest.test_rejects_lincs_warning) ... ok
+test_rejects_missing_console_log (__main__.WaterEMTest.test_rejects_missing_console_log) ... ok
+test_rejects_missing_final_force (__main__.WaterEMTest.test_rejects_missing_final_force) ... ok
+test_rejects_nonfinite (__main__.WaterEMTest.test_rejects_nonfinite) ... ok
+test_rejects_settle_even_when_force_converged (__main__.WaterEMTest.test_rejects_settle_even_when_force_converged) ... ok
+test_rejects_settle_in_console_only (__main__.WaterEMTest.test_rejects_settle_in_console_only) ... ok
+test_rejects_topology_count_mismatch (__main__.WaterEMTest.test_rejects_topology_count_mismatch) ... ok
+test_stdout_only_preserves_original_summary (__main__.WaterEMTest.test_stdout_only_preserves_original_summary) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.065s
+
+OK
