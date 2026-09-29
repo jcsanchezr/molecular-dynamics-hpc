@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+host="$(hostname -s)"
+[[ "${host,,}" == "compute-node" ]] || { echo 'Docker solo en ComputeNode.' >&2; exit 1; }
+[[ "$(id -u)" -ne 0 ]] || { echo 'Usa este script sin sudo.' >&2; exit 1; }
+root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
+exec sudo env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS \
+    -u DOCKER_TLS_VERIFY -u DOCKER_CERT_PATH \
+    -u BUILDX_BUILDER -u BUILDX_CONFIG \
+    "LOCAL_UID=$(id -u)" "LOCAL_GID=$(id -g)" \
+    docker --host unix:///var/run/docker.sock compose \
+    --project-directory "$root" --project-name molecular-dynamics-hpc \
+    --file "$root/compose.yaml" "$@"

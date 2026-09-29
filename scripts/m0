@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+host="$(hostname -s)"
+[[ "${host,,}" == "compute-node" ]] || { echo 'Ejecutar solo en ComputeNode.' >&2; exit 1; }
+[[ "$(id -u)" -ne 0 ]] || { echo 'Usa este script sin sudo.' >&2; exit 1; }
+root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
+cd "$root"
+./scripts/mdc config --quiet
+logdir="runs/m0-$(date -u +%Y%m%dT%H%M%SZ)-$$"
+mkdir "$logdir"
+trap 'rc=$?; printf "ERROR. Conserva los registros en %s\n" "$logdir" >&2; exit "$rc"' ERR
+
+./scripts/mdc --progress plain build --builder default cpu 2>&1 | tee "$logdir/build.log"
+./scripts/mdc run --rm --no-deps -T cpu gmx --version 2>&1 | tee "$logdir/gromacs-version.txt"
+./scripts/mdc run --rm --no-deps -T cpu sh -eu -c '
+    id
+    test "$(id -u)" -ne 0
+    python3 --version
+    test -r /opt/gromacs/share/gromacs/top/spc216.gro
+    printf "cpu.max: "; cat /sys/fs/cgroup/cpu.max
+    printf "memory.max: "; cat /sys/fs/cgroup/memory.max
+    printf "memory.swap.max: "; cat /sys/fs/cgroup/memory.swap.max
+    printf "persistent-output-ok\n" > "$1/write-test.txt"
+    cp /opt/provenance/* "$1/"
+' sh "/workspace/$logdir" 2>&1 | tee "$logdir/runtime-check.txt"
+
+test "$(stat -c %u "$logdir/write-test.txt")" = "$(id -u)"
+printf "\nM0 SMOKE TEST OK. No se ha ejecutado una simulacion.\n"
+printf "Registros: %s/%s\n" "$root" "$logdir"
+ls -l "$logdir/write-test.txt"
+git status --short

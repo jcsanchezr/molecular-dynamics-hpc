@@ -1,0 +1,27 @@
+name: molecular-dynamics-hpc
+services:
+  cpu:
+    image: molecular-dynamics-hpc:gmx2026.2-cpu
+    build:
+      context: .
+      dockerfile: containers/Dockerfile.cpu
+    user: "${LOCAL_UID:?Run scripts/mdc}:${LOCAL_GID:?Run scripts/mdc}"
+    working_dir: /workspace/runs
+    environment:
+      HOME: /tmp
+      OMP_NUM_THREADS: "2"
+    cpus: 2.0
+    mem_limit: 2g
+    memswap_limit: 2g
+    pids_limit: 128
+    network_mode: none
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    volumes:
+      - ./inputs:/workspace/inputs:ro
+      - ./workflows:/workspace/workflows:ro
+      - ./analysis:/workspace/analysis:ro
+      - ./runs:/workspace/runs:rw

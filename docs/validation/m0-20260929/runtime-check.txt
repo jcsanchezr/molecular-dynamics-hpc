@@ -1,0 +1,7 @@
+ Container molecular-dynamics-hpc-cpu-run-2bd402d7201a Creating 
+ Container molecular-dynamics-hpc-cpu-run-2bd402d7201a Created 
+uid=1000(ubuntu) gid=1000(ubuntu) groups=1000(ubuntu)
+Python 3.12.3
+cpu.max: 200000 100000
+memory.max: 2147483648
+memory.swap.max: 0
