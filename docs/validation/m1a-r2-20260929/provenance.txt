@@ -1,0 +1,8 @@
+StartedUTC=2026-09-29T20:07:57+00:00
+Host=compute-node
+Image=molecular-dynamics-hpc:gmx2026.2-cpu
+ImageID=sha256:e6d20f0d1198056f9b842510d7e7e75bb4677a8597d268db78cc8fac49739e73
+BaseCommit=f3d0e2edbf07dfa29d617f0562609fc9f3d63049
+Worktree snapshot follows (uncommitted files are copied into source/):
+ M inputs/water-spce/em.mdp
+FinishedUTC=2026-09-29T20:07:58+00:00

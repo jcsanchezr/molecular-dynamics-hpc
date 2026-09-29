@@ -1,0 +1,25 @@
+{
+  "validation_policy": "water-em-v2-diagnostic-gate",
+  "numerical_checks_passed": true,
+  "diagnostics": [],
+  "status": "PASS",
+  "stage": "M1a preparation and coarse energy minimization; NOT MD",
+  "atoms": 2652,
+  "water_molecules": 884,
+  "box_nm": [
+    3.0,
+    3.0,
+    3.0
+  ],
+  "maximum_force_kj_mol_nm": 672.02136,
+  "emtol_kj_mol_nm": 1000.0,
+  "potential_initial_kj_mol": -4144.825195,
+  "potential_final_kj_mol": -37424.300781,
+  "energy_samples": 17,
+  "checks": {
+    "maximum_force_below_emtol": true,
+    "potential_did_not_increase": true,
+    "final_energy_matches_log": true,
+    "constraint_diagnostics_absent": true
+  }
+}

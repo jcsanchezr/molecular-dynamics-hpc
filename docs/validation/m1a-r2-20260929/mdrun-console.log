@@ -1,0 +1,26 @@
+                      :-) GROMACS - gmx mdrun, 2026.2 (-:
+
+Executable:   /opt/gromacs/bin/gmx
+Data prefix:  /opt/gromacs
+Working dir:  /workspace/runs/m1a-20260929T200757Z-1227519
+Command line:
+  gmx mdrun -s em.tpr -deffnm em -ntmpi 1 -ntomp 2 -pin off -nb cpu -pme cpu
+
+Reading file em.tpr, VERSION 2026.2 (single precision)
+Using 1 MPI thread
+Using 2 OpenMP threads 
+
+
+Steepest Descents:
+   Tolerance (Fmax)   =  1.00000e+03
+   Number of steps    =         2000
+
+writing lowest energy coordinates.
+
+Steepest Descents converged to Fmax < 1000 in 17 steps
+Potential Energy  = -3.7424301e+04
+Maximum force     =  6.7202136e+02 on atom 955
+Norm of force     =  1.7873673e+02
+
+GROMACS reminds you: "Now it's filled with hundreds and hundreds of chemicals" (Midlake)
+

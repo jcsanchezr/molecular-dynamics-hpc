@@ -104,3 +104,25 @@ procedure. No time-dependent molecular dynamics has been claimed.
 Next controlled experiment: repeat the same preparation/minimization with only
 the steepest-descent initial maximum displacement reduced from emstep=0.01 nm
 to emstep=0.001 nm. M1b must not start until this diagnostic is resolved.
+
+## Controlled rerun r2 — 2026-09-29
+
+Run:
+`runs/m1a-20260929T200757Z-1227519`
+
+Only `emstep` was changed, from 0.01 nm to 0.001 nm. All other M1a
+system and acceptance parameters were retained.
+
+Observed:
+
+- 884 SPC/E waters / 2652 atoms
+- steepest descent converged in 17 steps
+- Fmax = 672.02136 kJ mol^-1 nm^-1
+- emtol = 1000 kJ mol^-1 nm^-1
+- potential energy: -4144.825195 -> -37424.300781 kJ/mol
+- diagnostic list empty
+- constraint_diagnostics_absent = true
+- validation status = PASS
+
+M1a is therefore closed on r2. The r1 REVIEW_REQUIRED result remains
+preserved as evidence of the earlier SETTLE diagnostic and validator improvement.
