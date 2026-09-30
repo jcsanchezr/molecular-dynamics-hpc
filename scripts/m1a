@@ -2,8 +2,14 @@
 # Run on ComputeNode as compute-user. No builds, package installations or Git commits.
 set -Eeuo pipefail
 export LC_ALL=C
-[[ "$(hostname -s)" == compute-node && "$(id -un)" == compute-user && "$(id -u)" != 0 ]] || {
-    echo 'Run as compute-user on ComputeNode, without sudo.' >&2; exit 1;
+marker="${XDG_CONFIG_HOME:-$HOME/.config}/molecular-dynamics-hpc/compute-node"
+[[ -f "$marker" ]] || {
+    echo 'Missing local compute-node authorization marker.' >&2
+    exit 1
+}
+[[ "$(id -u)" != 0 ]] || {
+    echo 'Run as a non-root user.' >&2
+    exit 1
 }
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
 cd "$root"
@@ -35,8 +41,8 @@ source_files=(compose.yaml compose.run.yaml scripts/mdc scripts/m1a \
 cp --parents -- "${source_files[@]}" "runs/$run/source/"
 ( cd "runs/$run/source"; sha256sum "${source_files[@]}" > SHA256SUMS )
 {
-    printf 'StartedUTC=%s\nHost=%s\nImage=%s\nImageID=%s\n' \
-        "$(date -u -Is)" "$(hostname -s)" "$image" "$actual"
+    printf 'StartedUTC=%s\nExecutionRole=compute-node\nImage=%s\nImageID=%s\n' \
+        "$(date -u -Is)" "$image" "$actual"
     printf 'BaseCommit=%s\n' "$(git rev-parse HEAD)"
     printf 'Worktree snapshot follows (uncommitted files are copied into source/):\n'
     git status --short

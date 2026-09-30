@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-host="$(hostname -s)"
-[[ "${host,,}" == "compute-node" ]] || { echo 'Docker solo en ComputeNode.' >&2; exit 1; }
+marker="${XDG_CONFIG_HOME:-$HOME/.config}/molecular-dynamics-hpc/compute-node"
+[[ -f "$marker" ]] || {
+    echo 'Missing local compute-node authorization marker.' >&2
+    exit 1
+}
 [[ "$(id -u)" -ne 0 ]] || { echo 'Usa este script sin sudo.' >&2; exit 1; }
 root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
 exec sudo env -u DOCKER_HOST -u DOCKER_CONTEXT -u DOCKER_TLS \
