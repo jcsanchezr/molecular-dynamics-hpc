@@ -2,8 +2,7 @@
 
 CPU-first GROMACS workflow for reproducible molecular dynamics.
 
-Infrastructure policy: all Docker builds and runs live on ComputeNode.
-development-workstation is the editing and SSH workstation, not the Docker execution host.
+Infrastructure policy: Docker builds and scientific runs execute on a dedicated compute node. Editing, Git operations, and SSH orchestration are performed from a separate development workstation.
 
 M0: CPU environment and CLI/storage smoke test verified on 2026-09-29. See docs/validation/m0-20260929/.
 M1: system preparation, minimization, equilibration and short production.
